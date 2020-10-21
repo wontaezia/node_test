@@ -1,4 +1,4 @@
-const fs = require("fs");
+const fs = require('fs');
 
 /**
  * 기본 내장 모듈인 fs.readFile 함수는 본래 async, await 키워드로 비동기 처리가 불가능 합니다.
@@ -17,8 +17,13 @@ const fs = require("fs");
  * readFile 성공시에 읽어진 데이터 리턴
  * readFile 실패시에 "fail" 문자열 반환
  */
-const readFilePromise = (...args) => {
-  return;
+const readFilePromise = async (...args) => {
+  return new Promise((resolve, reject) => {
+    fs.readFile(...args, (err, result) => {
+      if (err) reject('fail');
+      if (result) resolve(result);
+    });
+  });
 };
 
 module.exports = { readFilePromise };

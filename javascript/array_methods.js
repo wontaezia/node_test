@@ -12,9 +12,13 @@
  * @param {string} jobArea
  * @returns {array[object]} users 유저의 정보가 객체로 담긴 배열
  */
-
 const usersHandler = (users, jobArea) => {
-  return;
+  return users
+    .filter((user) => user.jobArea === jobArea)
+    .map((filteredUser) => ({
+      ...filteredUser,
+      language: 'JavaScript',
+    }));
 };
 
 /**
@@ -27,7 +31,13 @@ const usersHandler = (users, jobArea) => {
  * @returns {object} 단어가 카운팅 된 객체
  */
 const wordCount = (words) => {
-  return;
+  if (!words) return {};
+
+  return words.split(' ').reduce((countObj, word) => {
+    const isDuplicated = countObj.hasOwnProperty(word);
+    isDuplicated ? (countObj[word] += 1) : (countObj[word] = 1);
+    return countObj;
+  }, {});
 };
 
 module.exports = { usersHandler, wordCount };
